@@ -1,0 +1,25 @@
+{
+  "name": "github-compare",
+  "version": "0.0.0",
+  "authors": [
+    "Brian Payne <bpayne@uci.edu>"
+  ],
+  "description": "Compares Github Repositories",
+  "main": "index.html",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.25",
+    "angular-route": "~1.2.25"
+  }
+}

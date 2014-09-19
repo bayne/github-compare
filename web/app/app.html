@@ -1,0 +1,23 @@
+<div ng-controller="tableCtrl">
+    <form name="comparison" novalidate>
+        <label>
+            Repository 1: <input type="text" name="repo1" ng-model="form.repo1">
+        </label>
+        <label>
+            Repository 2: <input type="text" name="repo2" ng-model="form.repo2">
+        </label>
+        <input type="submit" value="Compare" ng-click="compare(form)">
+    </form>
+    <table>
+        <tr>
+            <th>Repository</th>
+            <td>{{repo1.full_name}}</td>
+            <td>{{repo2.full_name}}</td>
+        </tr>
+        <tr>
+            <th>Stars</th>
+            <td>{{repo1.stargazers_count}}</td>
+            <td>{{repo2.stargazers_count}}</td>
+        </tr>
+    </table>
+</div>
