@@ -11,9 +11,16 @@ module.exports = function(grunt) {
         dest: 'web/js/<%= pkg.name %>.js'
       }
     },
-    bower_concat: {
-      all: {
-        dest: 'web/js/_bower.js',
+    bower: {
+      install: {
+      },
+      options: {
+        copy: false
+      }
+    },
+    bowerInstall: {
+      target: {
+        src: ['web/index.html'],
       }
     },
     jshint: {
@@ -30,7 +37,7 @@ module.exports = function(grunt) {
     },
     watch: {
       files: ['<%= jshint.files %>'],
-      tasks: ['bower_concat', 'concat', 'jshint']
+      tasks: ['concat', 'jshint', 'bowerInstall']
     },
     connect: {
       server: {
@@ -44,12 +51,13 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-bower-concat');
+  grunt.loadNpmTasks('grunt-bower-install');
+  grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-connect');
 
-  grunt.registerTask('default', ['jshint', 'concat', 'bower_concat']);
-  grunt.registerTask('dev', ['connect', 'watch']);
+  grunt.registerTask('default', ['jshint', 'concat', 'bower', 'bowerInstall']);
+  grunt.registerTask('dev', ['connect', 'watch', 'bower', 'bowerInstall']);
 
 };
