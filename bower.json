@@ -20,6 +20,15 @@
   ],
   "dependencies": {
     "angular": "~1.2.25",
-    "angular-route": "~1.2.25"
+    "angular-route": "~1.2.25",
+    "angular-moment": "0.8.2",
+    "foundation": "5.4.4",
+    "oauth-js": "0.2.2",
+    "angular-oauthio": "*"
+  },
+  "overrides": {
+    "angular-oauthio": {
+      "main": "dist/angular-oauth.io.js"
+    }
   }
 }

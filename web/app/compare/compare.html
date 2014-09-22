@@ -1,0 +1,41 @@
+<div class="row" ng-controller="CompareControllers_compareCtrl">
+  <div class="column medium medium-12">
+    <table>
+      <tr>
+        <th>Repository</th>
+        <td>{{repo1.full_name}}</td>
+        <td>{{repo2.full_name}}</td>
+      </tr>
+      <tr>
+        <th>Stars</th>
+        <td>{{repo1.stargazers_count}}</td>
+        <td>{{repo2.stargazers_count}}</td>
+      </tr>
+      <tr>
+        <th>Forks</th>
+        <td>{{repo1.forks_count}}</td>
+        <td>{{repo2.forks_count}}</td>
+      </tr>
+      <tr>
+        <th>Languages</th>
+        <td>{{repo1.languages}}</td>
+        <td>{{repo2.languages}}</td>
+      </tr>
+      <tr>
+        <th>Contributor Count</th>
+        <td>{{repo1.contributors.length}}</td>
+        <td>{{repo2.contributors.length}}</td>
+      </tr>
+      <tr>
+        <th>Date created</th>
+        <td>{{repo1.created_at | amCalendar}}</td>
+        <td>{{repo2.created_at | amCalendar}}</td>
+      </tr>
+      <tr>
+        <th>Last updated</th>
+        <td><span am-time-ago="repo1.pushed_at"></span></td>
+        <td><span am-time-ago="repo2.pushed_at"></span></td>
+      </tr>
+    </table>
+  </div>
+</div>
