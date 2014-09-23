@@ -4,17 +4,35 @@ angular.module('GithubServices', ['oauth.io'])
     OAuthProvider.setHandler('github', function (OAuthData) {
       window.localStorage.setItem('accessToken', OAuthData.result.access_token);
     });
-    $httpProvider.interceptors.push(function () {
-      "use strict";
+    $httpProvider.interceptors.push(function ($q, ratelimitDispatcher) {
       return {
         request: function (config) {
           if (window.localStorage.getItem('accessToken')) {
-            config.headers.Authorization = 'token '+window.localStorage.getItem('accessToken');
+            config.headers.Authorization = 'token ' + window.localStorage.getItem('accessToken');
           }
           return config;
+        },
+        responseError: function (rejection) {
+          if (rejection.status == 403 && rejection.headers('X-RateLimit-Remaining') === '0') {
+            ratelimitDispatcher.dispatch(rejection);
+          }
+          return $q.reject(rejection);
         }
-      }
+      };
     });
+  })
+  .service('ratelimitDispatcher', function () {
+    var listeners = [];
+    return {
+      addListener: function (listener) {
+        listeners.push(listener);
+      },
+      dispatch: function (event) {
+        angular.forEach(listeners, function (listener) {
+          listener(event);
+        });
+      }
+    };
   })
   .service('githubApiClient', function ($http, $q) {
     var baseUrl = 'https://api.github.com';

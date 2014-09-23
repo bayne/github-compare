@@ -1,28 +1,45 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title></title>
+  <meta charset="UTF-8">
+  <title></title>
   <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
   <link rel="stylesheet" href="bower_components/foundation/css/foundation.css"/>
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
 </head>
 <body ng-app="App">
-    <section ng-view></section>
-    <!-- bower:js -->
-    <script src="bower_components/modernizr/modernizr.js"></script>
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/moment/moment.js"></script>
-    <script src="bower_components/angular-moment/angular-moment.js"></script>
-    <script src="bower_components/fastclick/lib/fastclick.js"></script>
-    <script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
-    <script src="bower_components/jquery-placeholder/jquery.placeholder.js"></script>
-    <script src="bower_components/foundation/js/foundation.js"></script>
-    <script src="bower_components/oauth-js/dist/oauth.min.js"></script>
-    <script src="bower_components/angular-oauthio/dist/angular-oauth.io.js"></script>
-    <!-- endbower -->
-    <script type="text/javascript" src="js/github-compare.js"></script>
+  <div ng-controller="App_githubModalCtrl">
+    <script type="text/ng-template" id="github-modal-content.html">
+      <h3>Rate limit Exceeded</h3>
+      <p>
+        You have exceeded the number of allowed requests to GitHub for a period of time. To
+        continue please login to GitHub.
+      </p>
+      <p>
+        See the documentation on
+        <a href="https://developer.github.com/v3/rate_limit/">GitHub's Rate Limiting</a> for
+        more information.
+      </p>
+      <button class="button round" ng-click="signin()"><span class="fa fa-github-square"></span> Sign-in to GitHub</button>
+    </script>
+  </div>
+  <section ng-view></section>
+  <!-- bower:js -->
+  <script src="bower_components/modernizr/modernizr.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/angular-moment/angular-moment.js"></script>
+  <script src="bower_components/fastclick/lib/fastclick.js"></script>
+  <script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
+  <script src="bower_components/jquery-placeholder/jquery.placeholder.js"></script>
+  <script src="bower_components/foundation/js/foundation.js"></script>
+  <script src="bower_components/angular-foundation/mm-foundation-tpls.js"></script>
+  <script src="bower_components/oauth-js/dist/oauth.min.js"></script>
+  <script src="bower_components/angular-oauthio/dist/angular-oauth.io.js"></script>
+  <!-- endbower -->
+  <script type="text/javascript" src="js/github-compare.js"></script>
 </body>
 </html>
