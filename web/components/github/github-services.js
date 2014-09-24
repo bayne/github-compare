@@ -1,4 +1,4 @@
-angular.module('GithubServices', ['oauth.io'])
+angular.module('GithubServices', ['oauth.io', 'uri-template'])
   .config(function (OAuthProvider, $httpProvider) {
     OAuthProvider.setPublicKey('CKyIhlzMQQ3uA3hHEr2sSPmQl8Q');
     OAuthProvider.setHandler('github', function (OAuthData) {
@@ -17,6 +17,11 @@ angular.module('GithubServices', ['oauth.io'])
             ratelimitDispatcher.dispatch(rejection);
           }
           return $q.reject(rejection);
+        },
+        response: function (config) {
+          if (config.headers('Link') && Array.isArray(config.data)) {
+          }
+          return config;
         }
       };
     });
@@ -34,7 +39,7 @@ angular.module('GithubServices', ['oauth.io'])
       }
     };
   })
-  .service('githubApiClient', function ($http, $q) {
+  .service('githubApiClient', function ($http, $q, UriTemplate) {
     var baseUrl = 'https://api.github.com';
 
     function GithubApiClient () {
@@ -55,12 +60,18 @@ angular.module('GithubServices', ['oauth.io'])
           deferred.notify(stats);
           return $q.all([
             $http.get(stats.contributors_url),
-            $http.get(stats.languages_url)
+            $http.get(stats.languages_url),
+            $http.get(stats.tags_url),
+            $http.get(UriTemplate.parse(stats.releases_url).expand({"id": ''})),
+            $http.get(UriTemplate.parse(stats.commits_url).expand({"id": ''}))
           ]);
         })
         .then(function (promises) {
           stats.contributors = promises[0].data;
           stats.languages = promises[1].data;
+          stats.tags = promises[2].data;
+          stats.releases = promises[3].data;
+          stats.commits = promises[4].data;
           return deferred.resolve(stats);
         })
       ;

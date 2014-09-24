@@ -16,7 +16,6 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
       repo2: ''
     };
 
-
     $scope.compare = function (form) {
       var repo1 = form.repo1.replace('https://github.com/', '');
       var repo2 = form.repo2.replace('https://github.com/', '');

@@ -17,6 +17,26 @@
         <td>{{repo2.forks_count}}</td>
       </tr>
       <tr>
+      	<th>Issues</th>
+      	<td>{{repo1.open_issues_count}}</td>
+      	<td>{{repo2.open_issues_count}}</td>
+      </tr>
+      <tr>
+      	<th>Tags</th>
+      	<td>{{repo1.tags.length}}</td>
+      	<td>{{repo2.tags.length}}</td>
+      </tr>
+      <tr>
+      	<th>Releases</th>
+      	<td>{{repo1.releases.length}}</td>
+      	<td>{{repo2.releases.length}}</td>
+      </tr>
+      <tr>
+      	<th>Commits</th>
+      	<td>{{repo1.commits.length}}</td>
+      	<td>{{repo2.commits.length}}</td>
+      </tr>
+      <tr>
         <th>Languages</th>
         <td><language-list data="repo1.languages"/></td>
         <td><language-list data="repo2.languages"/></td>
