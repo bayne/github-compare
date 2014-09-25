@@ -35,6 +35,9 @@ angular.module('GithubServices', ['oauth.io', 'uri-template'])
   })
   .run(function ($q, $http, paginatedDispatcher, urlParser) {
     function parse_link_header(header) {
+      if (!header) {
+        return {};
+      }
       if (header.length === 0) {
         throw new Error("input must not be of zero length");
       }
