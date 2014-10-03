@@ -146,37 +146,33 @@ angular.module('GithubServices', ['oauth.io', 'uri-template'])
     GithubApiClient.prototype.getRepositoryStats = function (owner, repo) {
       var deferred = $q.defer();
       var stats = {};
+      function expand(link, attrName) {
+        return $http.get(link).then(function (response) {
+          stats[attrName] = response.data;
+          if (Array.isArray(response.data)) {
+            stats[attrName].total_count.then (function (total_count) {
+              stats[attrName].total_count = total_count;
+              deferred.notify(stats);
+            });
+            stats[attrName].total_count = 'Loading...';
+          }
+          deferred.notify(stats);
+        });
+      }
       $http({method: 'GET', url: baseUrl+'/repos/'+owner+'/'+repo})
         .then(function (response) {
           stats = response.data;
-          return $q.all([
-            $http.get(stats.contributors_url),
-            $http.get(stats.languages_url),
-            $http.get(stats.tags_url),
-            $http.get(UriTemplate.parse(stats.releases_url).expand({"id": ''})),
-            $http.get(UriTemplate.parse(stats.commits_url).expand({"id": ''}))
-          ]);
-        })
-        .then(function (promises) {
-
-          stats.contributors = promises[0].data;
-          stats.languages = promises[1].data;
-          stats.tags = promises[2].data;
-          stats.releases = promises[3].data;
-          stats.commits = promises[4].data;
+          deferred.notify(stats);
 
           return $q.all([
-            stats.contributors.total_count,
-            stats.tags.total_count,
-            stats.releases.total_count,
-            stats.commits.total_count
+            expand(stats.contributors_url, 'contributors'),
+            expand(stats.languages_url, 'languages'),
+            expand(stats.tags_url, 'tags'),
+            expand(UriTemplate.parse(stats.releases_url).expand({"id": ''}), 'releases'),
+            expand(UriTemplate.parse(stats.commits_url).expand({"id": ''}), 'commits'),
           ]);
         })
-        .then(function (promises) {
-          stats.contributors.total_count = promises[0];
-          stats.tags.total_count = promises[1];
-          stats.releases.total_count = promises[2];
-          stats.commits.total_count = promises[3];
+        .then(function () {
           deferred.resolve(stats);
         })
       ;

@@ -17,6 +17,10 @@ angular.module('CompareControllers', [])
       .then(function (repo) {
         $scope.repo1 = repo;
         $scope.form.repo1.url = repo.html_url;
+      }, function () {
+
+      }, function (partialRepo) {
+        $scope.repo1 = partialRepo;
       })
     ;
     githubApiClient
@@ -24,6 +28,10 @@ angular.module('CompareControllers', [])
       .then(function (repo) {
         $scope.repo2 = repo;
         $scope.form.repo2.url = repo.html_url;
+      }, function () {
+
+      }, function (partialRepo) {
+        $scope.repo2 = partialRepo;
       })
     ;
   })
