@@ -1,0 +1,4 @@
+[submodule "prod"]
+	path = prod
+	url = git@github.com:bayne/github-compare
+	branch = gh-pages

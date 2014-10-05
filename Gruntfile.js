@@ -7,8 +7,8 @@ module.exports = function(grunt) {
         separator: ';'
       },
       dist: {
-        src: ['web/app/**/*.js', 'web/components/**/*.js'],
-        dest: 'web/js/<%= pkg.name %>.js'
+        src: ['app/**/*.js', 'components/**/*.js'],
+        dest: 'js/<%= pkg.name %>.js'
       }
     },
     bower: {
@@ -20,12 +20,12 @@ module.exports = function(grunt) {
     },
     bowerInstall: {
       target: {
-        src: ['web/index.html'],
-        include: ['web/bower_components/angular-oauthio/dist/angular-oauth.io.js']
+        src: ['index.html'],
+        include: ['bower_components/angular-oauthio/dist/angular-oauth.io.js']
       }
     },
     jshint: {
-      files: ['Gruntfile.js', 'web/app/**/*.js', 'web/components/**/*.js'],
+      files: ['Gruntfile.js', 'app/**/*.js', 'components/**/*.js'],
       options: {
         // options here to override JSHint defaults
         globals: {
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
         options: {
            port: 8001,
            hostname: '*',
-           base: 'web'
+           base: '.'
         }
       }
     },
