@@ -64,38 +64,39 @@ angular.module('GithubServices', ['oauth.io', 'uri-template'])
       var parsedUrl = urlParser(response.config.url);
       var snoopUrl = parsedUrl.addToSearch('per_page', '1').url;
 
-      function findEnd(callback) {
-        var ret = $q.defer();
-        function findrange(o) {
-          var i = 1;
-          var deferred = $q.defer();
-          var ret = $q.defer();
-
-          var loop = function (result) {
-            if (result) {
-              i = i * 2;
-              callback(i+o).then(loop);
-            } else {
-              deferred.resolve(true);
-            }
-          };
-
-          callback(i+o).then(loop);
-          deferred.promise.then(function () {
-            ret.resolve([i/2+o, i+o]);
-          });
-
-          return ret.promise;
-        }
-        var loop = function (range) {
-          if (range[1] - range[0] > 1) {
-            findrange(range[0]).then(loop);
+      function getUpperbound(callback) {
+        var deferred = $q.defer();
+        var i = 1;
+        var loop = function (result) {
+          if (result < 0) {
+            i = i * 10;
+            callback(i).then(loop);
           } else {
-            ret.resolve(range[1]-1);
+            deferred.resolve(i);
           }
         };
-        findrange(0).then(loop);
-        return ret.promise;
+
+        callback(i).then(loop);
+
+        return deferred.promise;
+      }
+
+      function binarySearch(lower, upper, callback) {
+        var deferred = $q.defer();
+        function recurse(lower, upper) {
+          var midpoint = Math.ceil((lower+upper)/2);
+          callback(midpoint).then(function (result) {
+            if (result < 0) {
+              recurse(midpoint + 1, upper);
+            } else if (result > 0) {
+              recurse(lower, midpoint - 1);
+            } else {
+              deferred.resolve(midpoint);
+            }
+          });
+          return deferred.promise;
+        }
+        return recurse(lower, upper);
       }
 
       $http.get(snoopUrl, {stopPropagate: true}).then(function (response) {
@@ -109,7 +110,7 @@ angular.module('GithubServices', ['oauth.io', 'uri-template'])
           deferred.resolve(params.page);
         } else {
           // Have to traverse
-          var isNotEmpty = function (page) {
+          var compare = function (page) {
             var deferred = $q.defer();
             $http.get(
               urlParser(url)
@@ -117,18 +118,29 @@ angular.module('GithubServices', ['oauth.io', 'uri-template'])
                 .url+'&per_page=100',
               {stopPropagate: true}
             ).then(function (response) {
-                deferred.resolve(response.data.length > 0);
+                var next = parse_link_header(response.headers('Link')).next;
+                var result;
+                if (response.data.length === 0) {
+                  result = 1;
+                } else if (response.data.length == 100 && next !== undefined) {
+                  result = -1;
+                } else {
+                  result = 0;
+                }
+                deferred.resolve(result);
             });
             return deferred.promise;
           };
-          findEnd(isNotEmpty).then(function (lastPage) {
-            $http.get(
-              urlParser(url)
-                .addToSearch('page', lastPage)
-                .url+'&per_page=100',
-              {stopPropagate: true}
-            ).then(function (response) {
-                deferred.resolve(response.data.length+(lastPage-1)*100);
+          getUpperbound(compare).then(function (upperBound) {
+            binarySearch(1, upperBound, compare).then(function (lastPage) {
+              $http.get(
+                urlParser(url)
+                  .addToSearch('page', lastPage)
+                  .url+'&per_page=100',
+                {stopPropagate: true}
+              ).then(function (response) {
+                  deferred.resolve(response.data.length+(lastPage-1)*100);
+              });
             });
           });
         }
