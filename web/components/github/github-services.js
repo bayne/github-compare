@@ -64,6 +64,40 @@ angular.module('GithubServices', ['oauth.io', 'uri-template'])
       var parsedUrl = urlParser(response.config.url);
       var snoopUrl = parsedUrl.addToSearch('per_page', '1').url;
 
+      function findEnd(callback) {
+        var ret = $q.defer();
+        function findrange(o) {
+          var i = 1;
+          var deferred = $q.defer();
+          var ret = $q.defer();
+
+          var loop = function (result) {
+            if (result) {
+              i = i * 2;
+              callback(i+o).then(loop);
+            } else {
+              deferred.resolve(true);
+            }
+          };
+
+          callback(i+o).then(loop);
+          deferred.promise.then(function () {
+            ret.resolve([i/2+o, i+o]);
+          });
+
+          return ret.promise;
+        }
+        var loop = function (range) {
+          if (range[1] - range[0] > 1) {
+            findrange(range[0]).then(loop);
+          } else {
+            ret.resolve(range[1]-1);
+          }
+        };
+        findrange(0).then(loop);
+        return ret.promise;
+      }
+
       $http.get(snoopUrl, {stopPropagate: true}).then(function (response) {
         var last = parse_link_header(response.headers('Link')).last;
         var params = {};
@@ -75,17 +109,28 @@ angular.module('GithubServices', ['oauth.io', 'uri-template'])
           deferred.resolve(params.page);
         } else {
           // Have to traverse
-          var total = 0;
-          var count = function (response) {
-            var next = parse_link_header(response.headers('Link')).next;
-            total += response.data.length;
-            if (next) {
-              $http.get(next, {stopPropagate: true}).then(count);
-            } else {
-              deferred.resolve(total);
-            }
+          var isNotEmpty = function (page) {
+            var deferred = $q.defer();
+            $http.get(
+              urlParser(url)
+                .addToSearch('page', page)
+                .url+'&per_page=100',
+              {stopPropagate: true}
+            ).then(function (response) {
+                deferred.resolve(response.data.length > 0);
+            });
+            return deferred.promise;
           };
-          $http.get(urlParser(url).addToSearch('per_page', '100').url, {stopPropagate: true}).then(count);
+          findEnd(isNotEmpty).then(function (lastPage) {
+            $http.get(
+              urlParser(url)
+                .addToSearch('page', lastPage)
+                .url+'&per_page=100',
+              {stopPropagate: true}
+            ).then(function (response) {
+                deferred.resolve(response.data.length+(lastPage-1)*100);
+            });
+          });
         }
       });
 
