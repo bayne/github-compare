@@ -27,7 +27,8 @@
     "oauth-js": "0.2.2",
     "angular-oauthio": "*",
     "font-awesome": "4.2.0",
-    "angular-uri-templates": "*"
+    "angular-uri-templates": "*",
+    "angulartics": "0.17.0"
   },
   "overrides": {
     "angular-oauthio": {

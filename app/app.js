@@ -1,4 +1,4 @@
-angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 'mm.foundation'], function ($routeProvider) {
+angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 'mm.foundation', 'angulartics', 'angulartics.google.analytics'], function ($routeProvider) {
   "use strict";
     $routeProvider
       .when('/', {templateUrl: 'app/app.html'})
