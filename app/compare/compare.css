@@ -1,0 +1,18 @@
+.compare .comp-section {
+  padding-bottom: 12px;
+  margin-top: 12px;
+  border-bottom: solid 1px #ddd; }
+  .compare .comp-section .summary {
+    margin-top: 4px; }
+  .compare .comp-section .community .stars {
+    font-size: 1.3em; }
+  .compare .comp-section .code .commits {
+    font-size: 1.3em; }
+  .compare .comp-section .development .issues {
+    font-size: 1.3em; }
+  .compare .comp-section .project a.repo-name {
+    font-size: 1.3em;
+    display: block;
+    margin-bottom: 4px; }
+
+/*# sourceMappingURL=compare.css.map */

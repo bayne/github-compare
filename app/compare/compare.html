@@ -12,14 +12,14 @@
         <li class="has-form">
           <div class="row">
             <div class="large-12 columns">
-              <input type="text" name="repo1_url" ng-model="form.repo1.url">
+              <input type="text" name="repos[0]_url" ng-model="form.repos[0].url">
             </div>
           </div>
         </li>
         <li class="has-form">
           <div class="row collapse">
             <div class="large-12 columns">
-              <input type="text" name="repo2_url" ng-model="form.repo2.url">
+              <input type="text" name="repos[1]_url" ng-model="form.repos[1].url">
             </div>
           </div>
         </li>
@@ -30,65 +30,53 @@
     </section>
   </nav>
 
-  <div class="row"  style="margin-top: 24px;">
+  <div class="compare row"  style="margin-top: 24px;">
     <div class="column medium medium-12">
-      <table>
-        <tr>
-          <th>Repository</th>
-          <td><a ng-href="{{repo1.html_url}}">{{repo1.full_name}}</a></td>
-          <td><a ng-href="{{repo2.html_url}}">{{repo2.full_name}}</a></td>
-        </tr>
-        <tr>
-          <th>Stars</th>
-          <td><a ng-href="{{repo1.html_url}}/stargazers">{{repo1.stargazers_count}}</a></td>
-          <td><a ng-href="{{repo2.html_url}}/stargazers">{{repo2.stargazers_count}}</a></td>
-        </tr>
-        <tr>
-          <th>Forks</th>
-          <td><a ng-href="{{repo1.html_url}}/network">{{repo1.forks_count}}</a></td>
-          <td><a ng-href="{{repo2.html_url}}/network">{{repo2.forks_count}}</a></td>
-        </tr>
-        <tr>
-          <th>Issues</th>
-          <td><a ng-href="{{repo1.html_url}}/issues">{{repo1.open_issues_count}}</a></td>
-          <td><a ng-href="{{repo2.html_url}}/issues">{{repo2.open_issues_count}}</a></td>
-        </tr>
-        <tr>
-          <th>Tags</th>
-          <td>{{repo1.tags.total_count}}</td>
-          <td>{{repo2.tags.total_count}}</td>
-        </tr>
-        <tr>
-          <th>Releases</th>
-          <td>{{repo1.releases.total_count}}</td>
-          <td>{{repo2.releases.total_count}}</td>
-        </tr>
-        <tr>
-          <th>Commits</th>
-          <td>{{repo1.commits.total_count}}</td>
-          <td>{{repo2.commits.total_count}}</td>
-        </tr>
-        <tr>
-          <th>Languages</th>
-          <td><language-list data="repo1.languages"/></td>
-          <td><language-list data="repo2.languages"/></td>
-        </tr>
-        <tr>
-          <th>Contributor Count</th>
-          <td>{{repo1.contributors.total_count}}</td>
-          <td>{{repo2.contributors.total_count}}</td>
-        </tr>
-        <tr>
-          <th>Date created</th>
-          <td>{{repo1.created_at | amCalendar}}</td>
-          <td>{{repo2.created_at | amCalendar}}</td>
-        </tr>
-        <tr>
-          <th>Last updated</th>
-          <td><span am-time-ago="repo1.pushed_at"></span></td>
-          <td><span am-time-ago="repo2.pushed_at"></span></td>
-        </tr>
-      </table>
+      <div class="comp-section row">
+        <div class="column medium medium-3">
+          <h3>Project</h3>
+        </div>
+        <div data-ng-repeat="repo in repos" class="project summary column medium medium-4">
+          <a class="repo-name">{{repo.name}}</a>
+          <span class="fa fa-user"></span> <a data-ng-href="{{repo.owner.html_url}}">{{repo.owner.login}}</a><br/>
+          <span class="fa fa-circle-o"></span> {{repo.created_at | amDateFormat:'MMM Do, YYYY'}}<br/>
+          <span class="fa fa-refresh"></span> <span am-time-ago="repo.pushed_at"></span><br/>
+        </div>
+      </div>
+      <div class="comp-section row">
+        <div class="column medium medium-3">
+          <h4>Community</h4>
+        </div>
+        <div data-ng-repeat="repo in repos" class="community summary column medium medium-4">
+          <div class="stars">
+            <span class="fa fa-star"></span> <a ng-href="{{repo.html_url}}/stargazers">{{repo.stargazers_count}}</a>
+            <span class="fa fa-code-fork"></span> <a ng-href="{{repo.html_url}}/network">{{repo.forks_count}}</a><br/>
+          </div>
+          <span class="fa fa-users"></span> <a data-ng-href="{{repo.html_url}}/contributors">{{repo.contributors.total_count}}</a> contributor<span data-ng-show="repo.contributors.total_count != 1">s</span>
+        </div>
+      </div>
+      <div class="comp-section row">
+        <div class="column medium medium-3">
+          <h3>Code</h3>
+        </div>
+        <div data-ng-repeat="repo in repos" class="code summary column medium medium-4">
+          <div class="commits">
+            <a data-ng-href="{{repo.html_url}}/commits">{{repo.commits.total_count}}</a> commits
+          </div>
+          <span class="fa fa-language"></span> <language-list data="repo.languages"></language-list>
+        </div>
+      </div>
+      <div class="comp-section row">
+        <div class="column medium medium-3">
+          <h4>Development</h4>
+        </div>
+        <div data-ng-repeat="repo in repos" class="development summary column medium medium-4">
+          <div class="issues">
+            <a data-ng-href="{{repo.html_url}}/issues">{{repo.open_issues_count}}</a> issues
+          </div>
+          <span class="fa fa-tags"></span> <a data-ng-href="{{repo.html_url}}/tags">{{repo.tags.total_count}}</a> tags
+        </div>
+      </div>
     </div>
   </div>
 </div>

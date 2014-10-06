@@ -1,0 +1,32 @@
+.compare {
+  .comp-section {
+    padding-bottom: 12px;
+    margin-top: 12px;
+    border-bottom: solid 1px #ddd;
+    .summary {
+      margin-top: 4px;
+    }
+    .community {
+      .stars {
+        font-size: 1.3em;
+      }
+    }
+    .code {
+      .commits {
+        font-size: 1.3em;
+      }
+    }
+    .development {
+      .issues {
+        font-size: 1.3em;
+      }
+    }
+    .project {
+      a.repo-name {
+        font-size: 1.3em;
+        display: block;
+        margin-bottom: 4px;
+      }
+    }
+  }
+}

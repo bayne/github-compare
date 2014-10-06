@@ -7,6 +7,11 @@ angular.module('CompareDirectives', [])
         data: '='
       },
       link: function (scope, elem, attrs) {
+        scope.greaterThan = function (prop, val) {
+          return function (item) {
+            return item[prop] > val;
+          };
+        };
         scope.$watch('data', function (data) {
           var totalLines = 0;
           angular.forEach(data, function (value) {
@@ -17,7 +22,7 @@ angular.module('CompareDirectives', [])
             scope.languages.push({
               name: key,
               lines: value,
-              percent: Math.floor(100*value/totalLines)
+              percent: Math.round(100*value/totalLines)
             });
           });
           scope.languages.sort(function (a, b) {

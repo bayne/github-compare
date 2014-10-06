@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git log deploy.sh \
+git log deploy.sh > /dev/null \
     || { echo "Wrong directory"; exit; }
 
 cd prod && git fetch origin && git reset --hard origin/gh-pages \
@@ -16,6 +16,6 @@ rm -rf prod/* \
     || { echo "Copy failed"; exit; }
 
 cd prod
-git ls-files --deleted -z | xargs -0 git rm
+git ls-files --deleted -z | xargs -0 git rm 2> /dev/null
 git add . && git add -u && git commit -m "Deploy" && git push origin gh-pages \
     || { echo "Push failed"; exit; }
