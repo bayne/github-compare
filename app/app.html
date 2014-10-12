@@ -1,30 +1,24 @@
-<div id="homepage-hero" class="row" ng-controller="App_searchCtrl">
-  <div class="medium-12 columns">
+<div id="homepage-hero" class="container" ng-controller="App_searchCtrl">
+  <div class="title row">
+    <div class="medium-12 columns text-center">
+      <h1>Let's compare some GitHub repositories</h1>
+      <br>
+      <h3>Enter the URLs for the repositories you would like to compare.</h3>
+    </div>
+  </div>
+  <form name="form" novalidate>
     <div class="row">
       <div class="medium-6 columns">
-        <h1>Github Compare</h1>
-        <br>
-        <h3>Compare two Github repositories for great profit!</h3>
+        <input type="text" name="repo1" ng-model="form.repo1" required ng-pattern="/^https://github.com/[\w\d\-]+/[\w\d\-]+$/" placeholder="https://github.com/twbs/bootstrap">
+      </div>
+      <div class="medium-6 columns">
+        <input type="text" name="repo2" ng-model="form.repo2" required ng-pattern="/^https://github.com/[\w\d\-]+/[\w\d\-]+$/" placeholder="https://github.com/zurb/foundation">
       </div>
     </div>
     <div class="row">
-      <form name="form" novalidate>
-        <div class="medium-6 columns">
-          <label>
-            Repository 1:
-            <input type="text" name="repo1" ng-model="form.repo1" required ng-pattern="/^https://github.com/[\w\d\-]+/[\w\d\-]+$/" placeholder="https://github.com/twbs/bootstrap">
-          </label>
-        </div>
-        <div class="medium-6 columns">
-          <label>
-            Repository 2:
-            <input type="text" name="repo2" ng-model="form.repo2" required ng-pattern="/^https://github.com/[\w\d\-]+/[\w\d\-]+$/" placeholder="https://github.com/zurb/foundation">
-          </label>
-        </div>
-        <div class="medium-8 columns">
-          <input class="button round" type="submit" value="Compare" ng-click="compare(form)" ng-disabled="form.$invalid && form.$dirty">
-        </div>
-      </form>
+      <div class="medium-2 medium-centered columns">
+        <input class="button round" type="submit" value="Compare" ng-click="compare(form)" ng-disabled="form.$invalid && form.$dirty">
+      </div>
     </div>
-  </div>
+  </form>
 </div>
