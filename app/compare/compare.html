@@ -1,42 +1,28 @@
 <div class="wrapper" ng-controller="CompareControllers_compareCtrl">
+  <div class="row">
+    <div class="large large-12 columns">
+      <h1>Github Compare</h1>
+    </div>
+  </div>
 
-  <nav class="top-bar" data-topbar role="navigation">
-    <ul class="title-area">
-      <li class="name">
-        <h1><a href="/">GitHub Compare</a></h1>
-      </li>
-    </ul>
-
-    <section class="top-bar-section">
-      <ul>
-        <li class="has-form">
-          <div class="row">
-            <div class="large-12 columns">
-              <input type="text" name="repos[0]_url" ng-model="form.repos[0].url">
-            </div>
-          </div>
-        </li>
-        <li class="has-form">
-          <div class="row collapse">
-            <div class="large-12 columns">
-              <input type="text" name="repos[1]_url" ng-model="form.repos[1].url">
-            </div>
-          </div>
-        </li>
-        <li class="has-form">
-          <button ng-click="form.submit()" class="button">Compare</button>
-        </li>
-      </ul>
-    </section>
-  </nav>
-
+  <div class="compare-form row">
+    <div class="large large-5 columns">
+      <input type="text" name="repos[0]_url" ng-model="form.repos[0].url" placeholder="https://github.com/twbs/bootstrap">
+    </div>
+    <div class="large large-5 columns">
+      <input type="text" name="repos[1]_url" ng-model="form.repos[1].url" placeholder="https://github.com/zurb/foundation">
+    </div>
+    <div class="large large-2 columns">
+      <button class="button">Compare</button>
+    </div>
+  </div>
   <div class="compare row"  style="margin-top: 24px;">
-    <div class="column medium medium-12">
+    <div class="columns medium medium-12">
       <div class="comp-section row">
-        <div class="column medium medium-3">
+        <div class="columns medium medium-3">
           <h3>Project</h3>
         </div>
-        <div data-ng-repeat="repo in repos" class="project summary column medium medium-4">
+        <div data-ng-repeat="repo in repos" class="project summary columns medium medium-4">
           <a class="repo-name">{{repo.name}}</a>
           <span class="fa fa-user"></span> <a data-ng-href="{{repo.owner.html_url}}">{{repo.owner.login}}</a><br/>
           <span class="fa fa-circle-o"></span> {{repo.created_at | amDateFormat:'MMM Do, YYYY'}}<br/>
@@ -44,10 +30,10 @@
         </div>
       </div>
       <div class="comp-section row">
-        <div class="column medium medium-3">
+        <div class="columns medium medium-3">
           <h4>Community</h4>
         </div>
-        <div data-ng-repeat="repo in repos" class="community summary column medium medium-4">
+        <div data-ng-repeat="repo in repos" class="community summary columns medium medium-4">
           <div class="stars">
             <span class="fa fa-star"></span> <a ng-href="{{repo.html_url}}/stargazers">{{repo.stargazers_count}}</a>
             <span class="fa fa-code-fork"></span> <a ng-href="{{repo.html_url}}/network">{{repo.forks_count}}</a><br/>
@@ -56,10 +42,10 @@
         </div>
       </div>
       <div class="comp-section row">
-        <div class="column medium medium-3">
+        <div class="columns medium medium-3">
           <h3>Code</h3>
         </div>
-        <div data-ng-repeat="repo in repos" class="code summary column medium medium-4">
+        <div data-ng-repeat="repo in repos" class="code summary columns medium medium-4">
           <div class="commits">
             <a data-ng-href="{{repo.html_url}}/commits">{{repo.commits.total_count}}</a> commits
           </div>
@@ -67,15 +53,21 @@
         </div>
       </div>
       <div class="comp-section row">
-        <div class="column medium medium-3">
+        <div class="columns medium medium-3">
           <h4>Development</h4>
         </div>
-        <div data-ng-repeat="repo in repos" class="development summary column medium medium-4">
+        <div data-ng-repeat="repo in repos" class="development summary columns medium medium-4">
           <div class="issues">
             <a data-ng-href="{{repo.html_url}}/issues">{{repo.open_issues_count}}</a> issues
           </div>
           <span class="fa fa-tags"></span> <a data-ng-href="{{repo.html_url}}/tags">{{repo.tags.total_count}}</a> tags
         </div>
+      </div>
+      <div class="comp-section row">
+        <div class="columns medium medium-3">
+          <h4>Google Trends</h4>
+        </div>
+        <iframe class="container columns medium medium-9" ng-src="{{trendsEmbedUrl | trustAsResourceUrl}}" style="border: none; height: 400px"></iframe>
       </div>
     </div>
   </div>

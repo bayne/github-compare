@@ -24,7 +24,11 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
     };
 
     $scope.compare = function (form) {
-      compareRepositories(form.repo1, form.repo2);
+      if (form.$dirty === false) {
+        compareRepositories("https://github.com/twbs/bootstrap", "https://github.com/zurb/foundation");
+      } else {
+        compareRepositories(form.repo1, form.repo2);
+      }
     };
   })
   .run(function ($modal, ratelimitDispatcher) {
