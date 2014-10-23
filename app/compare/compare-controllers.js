@@ -2,7 +2,7 @@ angular.module('CompareControllers', [])
   .controller('CompareControllers_compareCtrl', function ($scope, $location, $q, $routeParams, githubApiClient, compareRepositories) {
     "use strict";
     $scope.repos = [];
-    $scope.form = {
+    $scope.formData = {
       repos: [
         {
           url: ''
@@ -10,10 +10,10 @@ angular.module('CompareControllers', [])
         {
           url: ''
         }
-      ],
-      submit: function () {
-        compareRepositories(this.repos[0].url, this.repos[1].url);
-      }
+      ]
+    };
+    $scope.submit = function () {
+      compareRepositories($scope.formData.repos[0].url, $scope.formData.repos[1].url);
     };
     function addParameters(url, parameters) {
       var keyValues = [];
@@ -32,8 +32,8 @@ angular.module('CompareControllers', [])
 
     $q.all(promises).then(function (repos) {
       $scope.repos = repos;
-      $scope.form.repos[0].url = repos[0].html_url;
-      $scope.form.repos[1].url = repos[1].html_url;
+      $scope.formData.repos[0].url = repos[0].html_url;
+      $scope.formData.repos[1].url = repos[1].html_url;
 
       // get oldest repository and find the amount of time in months since today
       function getOldestRepo(repos) {
@@ -72,6 +72,6 @@ angular.module('CompareControllers', [])
   .filter('trustAsResourceUrl', function ($sce) {
     return function (val) {
       return $sce.trustAsResourceUrl(val);
-    }
+    };
   })
 ;

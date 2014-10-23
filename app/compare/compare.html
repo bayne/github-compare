@@ -5,17 +5,17 @@
     </div>
   </div>
 
-  <div class="compare-form row">
+  <form class="compare-form row" name="form">
     <div class="large large-5 columns">
-      <input type="text" name="repos[0]_url" ng-model="form.repos[0].url" placeholder="https://github.com/twbs/bootstrap">
+      <input type="text" name="repos[0]_url" ng-model="formData.repos[0].url" placeholder="https://github.com/twbs/bootstrap">
     </div>
     <div class="large large-5 columns">
-      <input type="text" name="repos[1]_url" ng-model="form.repos[1].url" placeholder="https://github.com/zurb/foundation">
+      <input type="text" name="repos[1]_url" ng-model="formData.repos[1].url" placeholder="https://github.com/zurb/foundation">
     </div>
     <div class="large large-2 columns">
-      <button class="button">Compare</button>
+      <button class="button" data-ng-click="submit()">Compare</button>
     </div>
-  </div>
+  </form>
   <div class="compare row"  style="margin-top: 24px;">
     <div class="columns medium medium-12">
       <div class="comp-section row">
@@ -23,7 +23,7 @@
           <h3>Project</h3>
         </div>
         <div data-ng-repeat="repo in repos" class="project summary columns medium medium-4">
-          <a class="repo-name">{{repo.name}}</a>
+          <a class="repo-name" ng-href="{{repo.html_url}}">{{repo.name}}</a>
           <span class="fa fa-user"></span> <a data-ng-href="{{repo.owner.html_url}}">{{repo.owner.login}}</a><br/>
           <span class="fa fa-circle-o"></span> {{repo.created_at | amDateFormat:'MMM Do, YYYY'}}<br/>
           <span class="fa fa-refresh"></span> <span am-time-ago="repo.pushed_at"></span><br/>
