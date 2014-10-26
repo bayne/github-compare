@@ -9,15 +9,21 @@
   <form name="form" novalidate>
     <div class="row">
       <div class="medium-6 columns">
-        <input type="text" name="repo1" ng-model="form.repo1" required ng-pattern="/^https://github.com/[\w\d\-]+/[\w\d\-]+$/" placeholder="https://github.com/twbs/bootstrap">
+        <label ng-class="{error: form.repo1.$invalid}">Repository 1
+          <input type="text" name="repo1" ng-model="formData.repo1" ng-pattern="/^https://github.com/[\w\d\-]+/[\w\d\-]+$/" placeholder="https://github.com/twbs/bootstrap">
+        </label>
+        <small ng-show="form.repo1.$invalid" class="error">Invalid Github project URL</small>
       </div>
       <div class="medium-6 columns">
-        <input type="text" name="repo2" ng-model="form.repo2" required ng-pattern="/^https://github.com/[\w\d\-]+/[\w\d\-]+$/" placeholder="https://github.com/zurb/foundation">
+        <label ng-class="{error: form.repo2.$invalid}">Repository 2
+          <input type="text" name="repo2" ng-model="formData.repo2" ng-pattern="/^https://github.com/[\w\d\-]+/[\w\d\-]+$/" placeholder="https://github.com/zurb/foundation">
+        </label>
+        <small ng-show="form.repo2.$invalid" class="error">Invalid Github project URL</small>
       </div>
     </div>
     <div class="row">
       <div class="medium-2 medium-centered columns">
-        <input class="button round" type="submit" value="Compare" ng-click="compare(form)" ng-disabled="form.$invalid && form.$dirty">
+        <input class="button round" type="submit" value="Compare" ng-click="compare(formData)" ng-disabled="form.$invalid && form.repo1.$dirty && form.repo2.$dirty">
       </div>
     </div>
   </form>

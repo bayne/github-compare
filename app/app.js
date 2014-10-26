@@ -22,16 +22,21 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
     };
   })
   .controller('App_searchCtrl', function ($scope, $location, compareRepositories) {
-    $scope.form = {
+    $scope.formData = {
       repo1: '',
       repo2: ''
     };
 
     $scope.compare = function (form) {
+      var defaults = [
+        "https://github.com/twbs/bootstrap",
+        "https://github.com/zurb/foundation"
+      ];
       if (form.$dirty === false) {
-        compareRepositories("https://github.com/twbs/bootstrap", "https://github.com/zurb/foundation");
+        compareRepositories(defaults[0], defaults[1]);
       } else {
-        compareRepositories(form.repo1, form.repo2);
+        console.log(defaults[0]);
+        compareRepositories(form.repo1 || defaults[0], form.repo2 || defaults[1]);
       }
     };
   })
