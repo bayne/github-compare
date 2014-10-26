@@ -1,9 +1,13 @@
-angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 'mm.foundation', 'angulartics', 'angulartics.google.analytics'], function ($routeProvider) {
+angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 'mm.foundation', 'angulartics', 'angulartics.google.analytics', 'ngDisqus'], function ($routeProvider) {
   "use strict";
     $routeProvider
       .when('/', {templateUrl: 'app/app.html'})
       .otherwise({redirectTo: '/'})
     ;
+  })
+  .config(function ($locationProvider, $disqusProvider) {
+    $locationProvider.hashPrefix('!');
+    $disqusProvider.setShortname('githubcompare');
   })
   .service('compareRepositories', function ($location) {
     return function (repoUrl1, repoUrl2) {
