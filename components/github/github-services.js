@@ -1,8 +1,9 @@
 angular.module('GithubServices', ['oauth.io', 'uri-template'])
   .config(function (OAuthProvider, $httpProvider) {
     OAuthProvider.setPublicKey('CKyIhlzMQQ3uA3hHEr2sSPmQl8Q');
-    OAuthProvider.setHandler('github', function (OAuthData) {
+    OAuthProvider.setHandler('github', function (OAuthData, ratelimitDispatcher) {
       window.localStorage.setItem('accessToken', OAuthData.result.access_token);
+      ratelimitDispatcher.dispatch(OAuthData);
     });
     $httpProvider.interceptors.push(function ($q, ratelimitDispatcher, paginatedDispatcher) {
       return {

@@ -35,12 +35,16 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
       }
     };
   })
-  .run(function ($modal, ratelimitDispatcher) {
-    ratelimitDispatcher.addListener(function () {
-      $modal.open({
-        templateUrl: 'github-modal-content.html',
-        controller: 'App_githubModalCtrl'
-      });
+  .run(function ($modal, $route, ratelimitDispatcher) {
+    ratelimitDispatcher.addListener(function (event) {
+      if (event.status === 403) {
+        $modal.open({
+          templateUrl: 'github-modal-content.html',
+          controller: 'App_githubModalCtrl'
+        });
+      } else {
+        window.location.reload(true);
+      }
     });
   })
 ;
