@@ -35,7 +35,6 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
       if (form.$dirty === false) {
         compareRepositories(defaults[0], defaults[1]);
       } else {
-        console.log(defaults[0]);
         compareRepositories(form.repo1 || defaults[0], form.repo2 || defaults[1]);
       }
     };

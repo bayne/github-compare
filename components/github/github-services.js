@@ -226,6 +226,8 @@ angular.module('GithubServices', ['oauth.io', 'uri-template'])
             expand(stats.contributors_url, 'contributors'),
             expand(stats.languages_url, 'languages'),
             expand(stats.tags_url, 'tags'),
+            expand(baseUrl+"/repos/"+owner+"/"+repo+"/pulls?state=open", 'open_pulls'),
+            expand(baseUrl+"/repos/"+owner+"/"+repo+"/pulls?state=closed", 'closed_pulls'),
             expand(UriTemplate.parse(stats.releases_url).expand({"id": ''}), 'releases'),
             expand(UriTemplate.parse(stats.commits_url).expand({"id": ''}), 'commits'),
           ]);

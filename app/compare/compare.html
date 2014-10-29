@@ -60,7 +60,8 @@
           <div class="issues">
             <a data-ng-href="{{repo.html_url}}/issues">{{repo.open_issues_count}}</a> issues
           </div>
-          <span class="fa fa-tags"></span> <a data-ng-href="{{repo.html_url}}/tags">{{repo.tags.total_count}}</a> tags
+          <span class="octicon octicon-git-pull-request"></span> <a data-ng-href="{{repo.html_url}}/pulls">{{repo.open_pulls.total_count}}</a> open <a data-ng-href="{{repo.html_url}}/pulls?a=is:closed">{{repo.closed_pulls.total_count}}</a> closed <br/>
+          <span class="octicon octicon-tag"></span> <a data-ng-href="{{repo.html_url}}/tags">{{repo.tags.total_count}}</a> tags
         </div>
       </div>
       <div class="comp-section row">
