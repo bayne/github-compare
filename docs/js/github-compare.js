@@ -113,7 +113,7 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
         w: '720',
         h: '480'
       };
-      $scope.trendsEmbedUrl = addParameters("http://www.google.com/trends/fetchComponent", parameters);
+      $scope.trendsEmbedUrl = addParameters("https://www.google.com/trends/fetchComponent", parameters);
     });
 
     angular.forEach(promises, function (value, key) {
