@@ -1,0 +1,28 @@
+{
+  "name": "angular-uri-templates",
+  "version": "0.1.0",
+  "authors": [
+    "Chris Rhoden <carhoden@gmail.com>"
+  ],
+  "description": "AngularJS module for parsing and expanding URI Templates (RFC 6570)",
+  "main": "angular-uri-templates.js",
+  "keywords": [
+    "angular",
+    "uritemplates",
+    "uri",
+    "template",
+    "angularjs"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular": "~1.2.24",
+    "angular-mocks": "~1.2.24"
+  }
+}

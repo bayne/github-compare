@@ -1,0 +1,13 @@
+{
+  "name": "angular-oauth.io",
+  "main": ["dist/angular-oauth.io.js"],
+  "ignore": ["src", "test"],
+  "version": "0.0.2",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "angular": "latest",
+    "angular-mocks": "latest",
+    "jquery": "latest"
+  }
+}

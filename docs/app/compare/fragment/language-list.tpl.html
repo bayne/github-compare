@@ -1,0 +1,2 @@
+<span class="language"><strong>{{languages[0].name}}</strong>: {{languages[0].percent}}% </span>
+<span class="language" ng-repeat="language in languages.slice(1) | filter: greaterThan('percent', 0)">{{language.name}}: {{language.percent}}% </span>

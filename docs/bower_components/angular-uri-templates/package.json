@@ -1,0 +1,36 @@
+{
+  "name": "angular-uri-templates",
+  "version": "0.1.0",
+  "description": "AngularJS module for parsing and expanding URI Templates",
+  "main": "angular-uri-templates.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PRX/angular-uri-templates.git"
+  },
+  "keywords": [
+    "angular",
+    "angularjs",
+    "uritemplate",
+    "uri",
+    "template",
+    "templates",
+    "uritemplates"
+  ],
+  "author": "Chris Rhoden <carhoden@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PRX/angular-uri-templates/issues"
+  },
+  "homepage": "https://github.com/PRX/angular-uri-templates",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-karma": "^0.9.0",
+    "karma": "^0.12.23",
+    "karma-coverage": "^0.2.6",
+    "karma-jasmine": "^0.2.2",
+    "karma-phantomjs-launcher": "^0.1.4"
+  }
+}
