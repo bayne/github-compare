@@ -10,13 +10,13 @@
     <div class="row">
       <div class="medium-6 columns">
         <label ng-class="{error: form.repo1.$invalid}">Repository 1
-          <input type="text" name="repo1" ng-model="formData.repo1" ng-pattern="/^https://github.com/[\w\d\-]+/[\w\d\-]+$/" placeholder="https://github.com/twbs/bootstrap">
+          <input type="text" name="repo1" ng-model="formData.repo1" ng-pattern="/^https://github.com/[\w\d\-]+/[\w\d\-\.]+$/" placeholder="https://github.com/twbs/bootstrap">
         </label>
         <small ng-show="form.repo1.$invalid" class="error">Invalid Github project URL</small>
       </div>
       <div class="medium-6 columns">
         <label ng-class="{error: form.repo2.$invalid}">Repository 2
-          <input type="text" name="repo2" ng-model="formData.repo2" ng-pattern="/^https://github.com/[\w\d\-]+/[\w\d\-]+$/" placeholder="https://github.com/zurb/foundation-sites">
+          <input type="text" name="repo2" ng-model="formData.repo2" ng-pattern="/^https://github.com/[\w\d\-]+/[\w\d\-\.]+$/" placeholder="https://github.com/zurb/foundation-sites">
         </label>
         <small ng-show="form.repo2.$invalid" class="error">Invalid Github project URL</small>
       </div>
