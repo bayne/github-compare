@@ -47,19 +47,19 @@ angular.module('CompareControllers', [])
       var monthsSinceToday = moment().diff(getOldestRepo(repos).created_at, 'months');
 
       var parameters = {
-        hl: 'en-US',
-        q: $scope.repos[0].name+','+$scope.repos[1].name,
-        geo: 'US',
-        date: 'today '+monthsSinceToday+'-m',
-        cmpt: 'q',
-        content: '1',
-        cat: '0-5-31',
-        cid: 'TIMESERIES_GRAPH_0',
-        export: '5',
-        w: '720',
-        h: '480'
-      };
-      $scope.trendsEmbedUrl = addParameters("https://www.google.com/trends/fetchComponent", parameters);
+		    comparisonItem: [{
+			    keyword: $scope.repos[0].name,
+			    geo: '',
+			    time: 'today 12-m'
+		    }, {
+			    keyword: $scope.repos[1].name,
+			    geo: '',
+			    time: 'today 12-m'
+		    }],
+		    category: 0,
+		    property: ''
+	    };
+      $scope.trendsEmbedUrl = 'https://trends.google.com:443/trends/embed/explore/TIMESERIES?req=' + JSON.stringify(parameters) + '&tz=-60';
     });
 
     angular.forEach(promises, function (value, key) {
