@@ -16,13 +16,9 @@ angular.module('CompareControllers', [])
       compareRepositories($scope.formData.repos[0].url, $scope.formData.repos[1].url);
     };
     function addParameters(url, parameters) {
-      var keyValues = [];
-      angular.forEach(parameters, function (value, key) {
-        keyValues.push(key+'='+value);
-      });
-      var parameterString = keyValues.join('&');
+      var parameterString = encodeURI(JSON.stringify(parameters));
 
-      return url+'?'+parameterString;
+      return url+'?req='+parameterString+'&tz=-60';
     }
 
     var promises = [
@@ -59,7 +55,7 @@ angular.module('CompareControllers', [])
 		    category: 0,
 		    property: ''
 	    };
-      $scope.trendsEmbedUrl = 'https://trends.google.com:443/trends/embed/explore/TIMESERIES?req=' + JSON.stringify(parameters) + '&tz=-60';
+      $scope.trendsEmbedUrl = addParameters('https://trends.google.com:443/trends/embed/explore/TIMESERIES', parameters);
     });
 
     angular.forEach(promises, function (value, key) {
