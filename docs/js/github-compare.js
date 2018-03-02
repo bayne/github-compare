@@ -30,7 +30,7 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
     $scope.compare = function (form) {
       var defaults = [
         "https://github.com/twbs/bootstrap",
-        "https://github.com/zurb/foundation-sites"
+        "https://github.com/zurb/foundation"
       ];
       if (form.$dirty === false) {
         compareRepositories(defaults[0], defaults[1]);
@@ -86,6 +86,7 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
 
     $q.all(promises).then(function (repos) {
       $scope.repos = repos;
+      console.log($scope.repos);
       $scope.formData.repos[0].url = repos[0].html_url;
       $scope.formData.repos[1].url = repos[1].html_url;
 
@@ -113,7 +114,7 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
         w: '720',
         h: '480'
       };
-      $scope.trendsEmbedUrl = addParameters("https://www.google.com/trends/fetchComponent", parameters);
+      $scope.trendsEmbedUrl = addParameters("http://www.google.com/trends/fetchComponent", parameters);
     });
 
     angular.forEach(promises, function (value, key) {

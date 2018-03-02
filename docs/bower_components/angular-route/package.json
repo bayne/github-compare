@@ -1,8 +1,8 @@
 {
   "name": "angular-route",
-  "version": "1.2.32",
+  "version": "1.2.28",
   "description": "AngularJS router module",
-  "main": "index.js",
+  "main": "angular-route.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,12 +22,5 @@
   "bugs": {
     "url": "https://github.com/angular/angular.js/issues"
   },
-  "homepage": "http://angularjs.org",
-  "jspm": {
-    "shim": {
-      "angular-route": {
-        "deps": ["angular"]
-      }
-    }
-  }
+  "homepage": "http://angularjs.org"
 }

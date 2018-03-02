@@ -23,7 +23,7 @@
     "tag": "v2.0.5",
     "commit": "415eb556fc99b1475bd3b221f29c21eb4388c40c"
   },
-  "_source": "https://github.com/imakewebthings/waypoints.git",
+  "_source": "git://github.com/imakewebthings/waypoints.git",
   "_target": "~v2.0.3",
   "_originalSource": "jquery-waypoints"
 }
