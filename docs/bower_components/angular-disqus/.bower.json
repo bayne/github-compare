@@ -20,7 +20,7 @@
     "tag": "v1.1.0",
     "commit": "985de7fd867740fba5cd492041d3a247161864c2"
   },
-  "_source": "git://github.com/kirstein/angular-disqus.git",
+  "_source": "https://github.com/kirstein/angular-disqus.git",
   "_target": "~1.1.0",
   "_originalSource": "angular-disqus"
 }

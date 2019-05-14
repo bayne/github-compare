@@ -22,7 +22,7 @@
     "tag": "0.2.2",
     "commit": "3f5447f4ff8c70b4b48ad9840ce7d68fe74bce24"
   },
-  "_source": "git://github.com/oauth-io/oauth-js.git",
+  "_source": "https://github.com/oauth-io/oauth-js.git",
   "_target": "0.2.2",
   "_originalSource": "oauth-js"
 }

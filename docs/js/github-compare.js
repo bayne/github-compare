@@ -30,7 +30,7 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
     $scope.compare = function (form) {
       var defaults = [
         "https://github.com/twbs/bootstrap",
-        "https://github.com/zurb/foundation"
+        "https://github.com/zurb/foundation-sites"
       ];
       if (form.$dirty === false) {
         compareRepositories(defaults[0], defaults[1]);
@@ -52,7 +52,8 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
     });
   })
 ;
-;angular.module('CompareControllers', [])
+;
+angular.module('CompareControllers', [])
   .controller('CompareControllers_compareCtrl', function ($scope, $location, $q, $routeParams, githubApiClient, compareRepositories) {
     "use strict";
     $scope.repos = [];
@@ -86,7 +87,6 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
 
     $q.all(promises).then(function (repos) {
       $scope.repos = repos;
-      console.log($scope.repos);
       $scope.formData.repos[0].url = repos[0].html_url;
       $scope.formData.repos[1].url = repos[1].html_url;
 
@@ -114,7 +114,7 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
         w: '720',
         h: '480'
       };
-      $scope.trendsEmbedUrl = addParameters("http://www.google.com/trends/fetchComponent", parameters);
+      $scope.trendsEmbedUrl = addParameters("https://www.google.com/trends/fetchComponent", parameters);
     });
 
     angular.forEach(promises, function (value, key) {
@@ -130,7 +130,8 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
     };
   })
 ;
-;angular.module('CompareDirectives', [])
+;
+angular.module('CompareDirectives', [])
   .directive('languageList', function () {
     return {
       restrict: 'E',
@@ -165,10 +166,12 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
     };
   })
 ;
-;angular.module('Compare', ['ngRoute', 'CompareControllers', 'CompareDirectives'], function ($routeProvider) {
+;
+angular.module('Compare', ['ngRoute', 'CompareControllers', 'CompareDirectives'], function ($routeProvider) {
   "use strict";
   $routeProvider.when('/compare/:owner1/:repo1/:owner2/:repo2', {templateUrl: 'app/compare/compare.html'});
-});;angular.module('GithubServices', ['oauth.io', 'uri-template'])
+});;
+angular.module('GithubServices', ['oauth.io', 'uri-template'])
   .config(function (OAuthProvider, $httpProvider) {
     OAuthProvider.setPublicKey('CKyIhlzMQQ3uA3hHEr2sSPmQl8Q');
     OAuthProvider.setHandler('github', function (OAuthData, ratelimitDispatcher) {
@@ -185,6 +188,10 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
         },
         responseError: function (rejection) {
           if (rejection.status == 403 && rejection.headers('X-RateLimit-Remaining') === '0') {
+            ratelimitDispatcher.dispatch(rejection);
+          }
+          if (rejection.status == 401) {
+            window.localStorage.removeItem('accessToken');
             ratelimitDispatcher.dispatch(rejection);
           }
           return $q.reject(rejection);
@@ -411,4 +418,5 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
 
     return new GithubApiClient();
   })
+;
 ;

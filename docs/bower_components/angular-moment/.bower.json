@@ -25,7 +25,7 @@
     "tag": "0.8.2",
     "commit": "62b9f6027ebcc9d95ab07626a6d80ede4b170c65"
   },
-  "_source": "git://github.com/urish/angular-moment.git",
+  "_source": "https://github.com/urish/angular-moment.git",
   "_target": "0.8.2",
   "_originalSource": "angular-moment"
 }

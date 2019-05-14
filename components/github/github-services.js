@@ -17,6 +17,10 @@ angular.module('GithubServices', ['oauth.io', 'uri-template'])
           if (rejection.status == 403 && rejection.headers('X-RateLimit-Remaining') === '0') {
             ratelimitDispatcher.dispatch(rejection);
           }
+          if (rejection.status == 401) {
+            window.localStorage.removeItem('accessToken');
+            ratelimitDispatcher.dispatch(rejection);
+          }
           return $q.reject(rejection);
         },
         response: function (response) {

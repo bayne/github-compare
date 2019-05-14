@@ -25,7 +25,7 @@
     "tag": "5.4.4",
     "commit": "11c003dd80ae005ff53395bcc6416f1ed3dc53a9"
   },
-  "_source": "git://github.com/zurb/bower-foundation.git",
+  "_source": "https://github.com/zurb/bower-foundation.git",
   "_target": "5.4.4",
   "_originalSource": "foundation"
 }

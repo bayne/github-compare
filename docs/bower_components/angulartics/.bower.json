@@ -29,14 +29,14 @@
     "angular-route": "~1.2",
     "angular-ui-router": "~0.2"
   },
-  "homepage": "https://github.com/luisfarzati/angulartics",
+  "homepage": "https://github.com/angulartics/angulartics",
   "_release": "0.17.0",
   "_resolution": {
     "type": "version",
     "tag": "0.17.0",
     "commit": "4b7c60fc831948a1e64ca7fffbc2b26ef7199941"
   },
-  "_source": "git://github.com/luisfarzati/angulartics.git",
+  "_source": "https://github.com/angulartics/angulartics.git",
   "_target": "0.17.0",
   "_originalSource": "angulartics"
 }

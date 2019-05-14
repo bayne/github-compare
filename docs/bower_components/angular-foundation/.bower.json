@@ -17,7 +17,7 @@
     "tag": "v0.3.1",
     "commit": "f04381ba47fe6ef270e47fce1804b038e501bebb"
   },
-  "_source": "git://github.com/pineconellc/angular-foundation-bower.git",
+  "_source": "https://github.com/pineconellc/angular-foundation-bower.git",
   "_target": "0.3.1",
   "_originalSource": "angular-foundation"
 }
