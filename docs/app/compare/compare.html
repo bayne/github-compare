@@ -64,12 +64,6 @@
           <span class="octicon octicon-tag"></span> <a data-ng-href="{{repo.html_url}}/tags">{{repo.tags.total_count}}</a> tags
         </div>
       </div>
-      <div class="comp-section row">
-        <div class="columns medium medium-3">
-          <h4>Google Trends</h4>
-        </div>
-        <iframe class="container columns medium medium-9" ng-src="{{trendsEmbedUrl | trustAsResourceUrl}}" style="border: none; height: 400px"></iframe>
-      </div>
       <div class="row">
         <div class="columns medium medium-12">
           <div disqus="repos[0].html_url+repos[1].html_url"></div>
