@@ -56,6 +56,7 @@ angular.module('App', ['ngRoute', 'GithubServices', 'Compare', 'angularMoment', 
 angular.module('CompareControllers', [])
   .controller('CompareControllers_compareCtrl', function ($scope, $location, $q, $routeParams, githubApiClient, compareRepositories) {
     "use strict";
+    document.title = $routeParams.owner1 + "/" +$routeParams.repo1 + " vs " + $routeParams.owner2 + "/" +$routeParams.repo2;
     $scope.repos = [];
     $scope.formData = {
       repos: [
