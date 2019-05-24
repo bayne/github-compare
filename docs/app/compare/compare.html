@@ -48,6 +48,7 @@
         <div data-ng-repeat="repo in repos" class="code summary columns medium medium-4">
           <div class="commits">
             <a data-ng-href="{{repo.html_url}}/commits">{{repo.commits.total_count}}</a> commits
+            <span class="fa fa-refresh"></span> <span am-time-ago="repo.latest_commit.0.commit.author.date"></span>
           </div>
           <span class="fa fa-language"></span> <language-list data="repo.languages"></language-list>
         </div>

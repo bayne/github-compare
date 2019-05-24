@@ -71,13 +71,9 @@ angular.module('CompareControllers', [])
       compareRepositories($scope.formData.repos[0].url, $scope.formData.repos[1].url);
     };
     function addParameters(url, parameters) {
-      var keyValues = [];
-      angular.forEach(parameters, function (value, key) {
-        keyValues.push(key+'='+value);
-      });
-      var parameterString = keyValues.join('&');
+      var parameterString = encodeURI(JSON.stringify(parameters));
 
-      return url+'?'+parameterString;
+      return url+'?req='+parameterString+'&tz=-60';
     }
 
     var promises = [
@@ -102,19 +98,19 @@ angular.module('CompareControllers', [])
       var monthsSinceToday = moment().diff(getOldestRepo(repos).created_at, 'months');
 
       var parameters = {
-        hl: 'en-US',
-        q: $scope.repos[0].name+','+$scope.repos[1].name,
-        geo: 'US',
-        date: 'today '+monthsSinceToday+'-m',
-        cmpt: 'q',
-        content: '1',
-        cat: '0-5-31',
-        cid: 'TIMESERIES_GRAPH_0',
-        export: '5',
-        w: '720',
-        h: '480'
-      };
-      $scope.trendsEmbedUrl = addParameters("https://www.google.com/trends/fetchComponent", parameters);
+		    comparisonItem: [{
+			    keyword: $scope.repos[0].name,
+			    geo: '',
+			    time: 'today 12-m'
+		    }, {
+			    keyword: $scope.repos[1].name,
+			    geo: '',
+			    time: 'today 12-m'
+		    }],
+		    category: 0,
+		    property: ''
+	    };
+      $scope.trendsEmbedUrl = addParameters('https://trends.google.com:443/trends/embed/explore/TIMESERIES', parameters);
     });
 
     angular.forEach(promises, function (value, key) {
@@ -407,6 +403,7 @@ angular.module('GithubServices', ['oauth.io', 'uri-template'])
             expand(baseUrl+"/repos/"+owner+"/"+repo+"/pulls?state=closed", 'closed_pulls'),
             expand(UriTemplate.parse(stats.releases_url).expand({"id": ''}), 'releases'),
             expand(UriTemplate.parse(stats.commits_url).expand({"id": ''}), 'commits'),
+            expand(baseUrl+"/repos/"+owner+"/"+repo+"/commits?page=1", 'latest_commit'),
           ]);
         })
         .then(function () {
